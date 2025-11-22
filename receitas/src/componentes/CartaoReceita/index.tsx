@@ -1,5 +1,6 @@
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Avaliacao from "../Avaliacao";
+import { v4 as uuidv4 } from 'uuid';
 
 interface CartaoReceitaProps {
   id: number
@@ -28,13 +29,15 @@ const CartaoReceita = ({ id, nome, ingredientes, instrucoes, imagem, aoDeletar }
         <h3>Ingredientes</h3>
         <ul>
           {ingredientes.map(ingrediente => (
-            <li>{ingrediente.nome} ({ingrediente.quantidade} {ingrediente.medida})</li>
+            <li
+              key={uuidv4()}>{ingrediente.nome} ({ingrediente.quantidade} {ingrediente.medida})</li>
           ))}
         </ul>
         <h3>Como fazer</h3>
         <ol>
           {instrucoes.map(instrucao => (
-            <li>{instrucao}</li>
+            <li
+              key={uuidv4()}>{instrucao}</li>
           ))}
         </ol>
       </div>

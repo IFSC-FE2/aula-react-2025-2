@@ -1,5 +1,6 @@
 import { useState } from "react"
 import type { IReceita } from "../../interfaces/Receita"
+import { v4 as uuidv4 } from 'uuid';
 
 interface FormularioProps {
   receita: IReceita
@@ -28,23 +29,30 @@ const Formulario = ({ receita, aoEditar }: FormularioProps) => {
             />
             <h2>Ingredientes</h2>
             <ul>
-              {receita.ingredientes.map(ingrediente => (
-                <li>
-                  <input type="text" value={ingrediente.nome} />
-                  <input type="number" value={ingrediente.quantidade} />
-                  <input type="text" value={ingrediente.medida} />
+              {receitaAtual.ingredientes.map(ingrediente => (
+                <li
+                  key={uuidv4()}>
+                  <input type="text" value={ingrediente.nome} onChange={() => { }} />
+                  <input type="number" value={ingrediente.quantidade} onChange={() => { }} />
+                  <input type="text" value={ingrediente.medida} onChange={() => { }} />
                 </li>
               )
               )}
             </ul>
             <h2>Modo de preparo</h2>
             <ol>
-              {receita.instrucoes.map(instrucao => (
-                <li>
-                  <input 
-                    type="text" 
-                    value={instrucao} 
-                    // onChange={}  
+              {receitaAtual.instrucoes.map((instrucao, i) => (
+                <li
+                  key={uuidv4()}>
+                  <input
+                    type="text"
+                    value={instrucao}
+                    onChange={e => {
+                      const instrucoes = receita.instrucoes.map((inst, j) =>
+                        i === j ? e.target.value : inst
+                      )
+                      setReceitaAtual({ ...receita, instrucoes })
+                    }}
                   />
                 </li>
               ))}

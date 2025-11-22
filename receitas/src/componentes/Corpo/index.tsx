@@ -1,66 +1,29 @@
-import { useState } from "react"
+import { Fragment, useContext, useState } from "react"
 import CartaoReceita from "../CartaoReceita"
 import "./style.css"
 import Formulario from "../Formulario"
 import type { IReceita } from "../../interfaces/Receita"
 import { v4 as uuidv4 } from 'uuid';
+import { ReceitaContext } from "../../contextos/ReceitaContext"
 
 const Corpo = () => {
 
-  const [receitas, setReceitas] = useState<IReceita[]>([{
-    id: 1,
-    nome: "Salmão Assado",
-    ingredientes: [
-      { nome: "Salmão", quantidade: 1, medida: "grande" },
-      { nome: "Pinoli", quantidade: 1, medida: "xícara" },
-      { nome: "Alface Manteiga", quantidade: 2, medida: "xícaras" },
-      { nome: "Abobrinha Amarela", quantidade: 1, medida: "média" },
-      { nome: "Azeite de Oliva", quantidade: 0.5, medida: "xícara" },
-      { nome: "Alho", quantidade: 3, medida: "dentes" },
-    ],
-    instrucoes: [
-      "Preaqueça o forno a 180°C.",
-      "Espalhe o azeite de oliva em uma assadeira de vidro.",
-      "Adicione a abobrinha amarela e leve ao forno por 30 minutos.",
-      "Adicione o salmão, o alho e os pinolis à assadeira.",
-      "Asse por 15 minutos.",
-      "Retire do forno. Adicione a alface e sirva.",
-    ],
-    imagem: "https://www.comidaereceitas.com.br/wp-content/uploads/2020/03/Salmao-assado-no-forno-freepik.jpg"
-  },
-  {
-    id: 2,
-    nome: "Tacos de Peixe",
-    ingredientes: [
-      { nome: "Peixe Branco", quantidade: 1, medida: "grande" },
-      { nome: "Queijo", quantidade: 1, medida: "xícara" },
-      { nome: "Alface Americana", quantidade: 2, medida: "xícaras" },
-      { nome: "Tomates", quantidade: 2, medida: "grandes" },
-      { nome: "Tortilhas", quantidade: 3, medida: "médias" },
-    ],
-    instrucoes: [
-      "Grelhe o peixe até que esteja completamente cozido.",
-      "Coloque o peixe sobre as 3 tortilhas.",
-      "Cubra com alface, tomates e queijo.",
-    ],
-    imagem: "https://previous-assets.womenshealth.pt/files/2020/01/shutterstock_228457978.jpg"
-  },])
+  const { receitas, setReceitas } = useContext(ReceitaContext)
 
   function aoDeletar(id: number) {
     setReceitas(receitas.filter(receita => receita.id !== id))
   }
 
   const aoEditar = (receita: IReceita) => {
-    setReceitas(receitas.map( r => (r.id === receita.id ? receita : r)))
+    setReceitas(receitas.map(r => (r.id === receita.id ? receita : r)))
   }
 
   return (
     <ul>
       <div className="d-flex justify-content-center gap-3">
         {receitas.map(receita => (
-          <>
+          <Fragment key={uuidv4()}>
             <CartaoReceita
-              key={uuidv4()}
               id={receita.id}
               nome={receita.nome}
               ingredientes={receita.ingredientes}
@@ -68,12 +31,11 @@ const Corpo = () => {
               imagem={receita.imagem}
               aoDeletar={aoDeletar}
             />
-            <Formulario 
-             key={uuidv4()}
-             receita={receita}
-             aoEditar={aoEditar}
+            <Formulario
+              receita={receita}
+              aoEditar={aoEditar}
             />
-          </>
+          </Fragment>
         ))}
       </div>
     </ul>
