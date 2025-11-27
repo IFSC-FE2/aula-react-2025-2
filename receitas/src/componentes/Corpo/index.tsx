@@ -1,22 +1,15 @@
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext } from "react"
 import CartaoReceita from "../CartaoReceita"
 import "./style.css"
 import Formulario from "../Formulario"
-import type { IReceita } from "../../interfaces/Receita"
 import { v4 as uuidv4 } from 'uuid';
 import { ReceitaContext } from "../../contextos/ReceitaContext"
+import useReceitas from "../../hooks/useReceitas";
 
 const Corpo = () => {
 
-  const { receitas, setReceitas } = useContext(ReceitaContext)
-
-  function aoDeletar(id: number) {
-    setReceitas(receitas.filter(receita => receita.id !== id))
-  }
-
-  const aoEditar = (receita: IReceita) => {
-    setReceitas(receitas.map(r => (r.id === receita.id ? receita : r)))
-  }
+  const { receitas } = useContext(ReceitaContext)
+  const { aoDeletar, aoEditar } = useReceitas()
 
   return (
     <ul>

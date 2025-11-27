@@ -10,9 +10,10 @@ interface IReceitaContext {
     setReceitas: React.Dispatch<React.SetStateAction<IReceita[]>>
 }
 
-const ReceitaContext = createContext<IReceitaContext>({ 
-    receitas: [], 
-    setReceitas: () => { } })
+const ReceitaContext = createContext<IReceitaContext>({
+    receitas: [],
+    setReceitas: () => {},
+})
 
 const ReceitaProvider = ({ children }: ReceitaProviderProp) => {
 
@@ -56,7 +57,7 @@ const ReceitaProvider = ({ children }: ReceitaProviderProp) => {
     },])
 
     return (
-        <ReceitaContext.Provider value={{ receitas, setReceitas }}>
+        <ReceitaContext.Provider value={{ receitas, setReceitas, }}>
             {children}
         </ReceitaContext.Provider>
     )
