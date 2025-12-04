@@ -1,3 +1,5 @@
+import { Link } from "react-router"
+
 interface ItemCabecalhoProps {
     texto: string,
     link: string
@@ -6,7 +8,7 @@ interface ItemCabecalhoProps {
 const ItemCabecalho = ({ texto, link }: ItemCabecalhoProps) => {
 
     return (<li className="nav-item">
-        <a className="nav-link text-light" aria-current="page" href={link}>{texto}</a>
+        <Link className="nav-link text-light" to={link}>{texto}</Link>
     </li>)
 }
 

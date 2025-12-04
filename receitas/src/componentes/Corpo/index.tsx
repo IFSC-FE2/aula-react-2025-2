@@ -13,7 +13,7 @@ const Corpo = () => {
 
   return (
     <ul>
-      <div className="d-flex justify-content-center gap-3">
+      <div className="d-flex flex-wrap justify-content-center">
         {receitas.map(receita => (
           <Fragment key={uuidv4()}>
             <CartaoReceita

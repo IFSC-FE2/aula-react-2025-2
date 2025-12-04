@@ -1,5 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import type { IReceita } from "../interfaces/Receita";
+
+import receitasJson from "../json/receitas.json"
 
 interface ReceitaProviderProp {
     children: React.ReactNode
@@ -12,49 +14,50 @@ interface IReceitaContext {
 
 const ReceitaContext = createContext<IReceitaContext>({
     receitas: [],
-    setReceitas: () => {},
+    setReceitas: () => { },
 })
 
 const ReceitaProvider = ({ children }: ReceitaProviderProp) => {
 
-    const [receitas, setReceitas] = useState<IReceita[]>([{
-        id: 1,
-        nome: "Salmão Assado",
-        ingredientes: [
-            { nome: "Salmão", quantidade: 1, medida: "grande" },
-            { nome: "Pinoli", quantidade: 1, medida: "xícara" },
-            { nome: "Alface Manteiga", quantidade: 2, medida: "xícaras" },
-            { nome: "Abobrinha Amarela", quantidade: 1, medida: "média" },
-            { nome: "Azeite de Oliva", quantidade: 0.5, medida: "xícara" },
-            { nome: "Alho", quantidade: 3, medida: "dentes" },
-        ],
-        instrucoes: [
-            "Preaqueça o forno a 180°C.",
-            "Espalhe o azeite de oliva em uma assadeira de vidro.",
-            "Adicione a abobrinha amarela e leve ao forno por 30 minutos.",
-            "Adicione o salmão, o alho e os pinolis à assadeira.",
-            "Asse por 15 minutos.",
-            "Retire do forno. Adicione a alface e sirva.",
-        ],
-        imagem: "https://www.comidaereceitas.com.br/wp-content/uploads/2020/03/Salmao-assado-no-forno-freepik.jpg"
-    },
-    {
-        id: 2,
-        nome: "Tacos de Peixe",
-        ingredientes: [
-            { nome: "Peixe Branco", quantidade: 1, medida: "grande" },
-            { nome: "Queijo", quantidade: 1, medida: "xícara" },
-            { nome: "Alface Americana", quantidade: 2, medida: "xícaras" },
-            { nome: "Tomates", quantidade: 2, medida: "grandes" },
-            { nome: "Tortilhas", quantidade: 3, medida: "médias" },
-        ],
-        instrucoes: [
-            "Grelhe o peixe até que esteja completamente cozido.",
-            "Coloque o peixe sobre as 3 tortilhas.",
-            "Cubra com alface, tomates e queijo.",
-        ],
-        imagem: "https://previous-assets.womenshealth.pt/files/2020/01/shutterstock_228457978.jpg"
-    },])
+    const [receitas, setReceitas] = useState<IReceita[]>([])
+
+    // useEffect(() => {
+    //     const carregarReceitas = async () => {
+    //         try {
+    //             const respostas = await fetch('http://localhost:3000/receitas')
+    //             const dados = await respostas.json();
+    //             setReceitas(dados)
+    //         }
+    //         catch (e) {
+    //             console.error('Erro ao carregar receitas: ', e)
+    //             setReceitas(receitasJson.receitas)
+    //         }
+    //     }
+    //     carregarReceitas()
+    // }, [])
+
+    useEffect(() => {
+        const carregarReceitas = async () => {
+            try {
+                const respostas = await fetch('https://dummyjson.com/recipes')
+                const dados = await respostas.json();
+                const receitasCarregadas = dados['recipes'].map((receita: any) => ({
+                    id: receita.id,
+                    nome: receita.name,
+                    ingredientes: receita.ingredients,
+                    instrucoes: receita.instructions,
+                    imagem: receita.image
+                }))
+                // console.log(receitasCarregadas)
+                setReceitas(receitasCarregadas)
+            }
+            catch (e) {
+                console.error('Erro ao carregar receitas: ', e)
+                setReceitas(receitasJson.receitas)
+            }
+        }
+        carregarReceitas()
+    }, [])
 
     return (
         <ReceitaContext.Provider value={{ receitas, setReceitas, }}>

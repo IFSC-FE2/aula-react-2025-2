@@ -15,8 +15,8 @@ const Cabecalho = ({ texto }: CabecalhoProps) => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <ItemCabecalho texto="Home" link="#" />
-                        <ItemCabecalho texto="Receitas" link="#" />
+                        <ItemCabecalho texto="Home" link="/" />
+                        <ItemCabecalho texto="Adicionar receita" link="/adicionar" />
                         <ItemCabecalho texto="Sobre" link="#" />
                     </ul>
                 </div>
