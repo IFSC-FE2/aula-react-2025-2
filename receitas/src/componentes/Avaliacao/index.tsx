@@ -10,7 +10,7 @@ const Avaliacao = () => {
     const [avaliacao, setAvaliacao] = useState(0)
 
     return (
-        <div>
+        <div data-testid="avaliacao">
             {coracoes.map((_, i) => (
                 <Coracao
                     key={uuidv4()}
