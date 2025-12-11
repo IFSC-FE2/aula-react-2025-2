@@ -1,12 +1,13 @@
-import Corpo from "../../componentes/Corpo"
+import Corpo from "../../componentes/Corpo";
 
 function Home() {
-
-    return (<>
-        <div className="container">
-            <Corpo />
-        </div>
-    </>)
+  return (
+    <>
+      <div className="container">
+        <Corpo />
+      </div>
+    </>
+  );
 }
 
-export default Home
+export default Home;

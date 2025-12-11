@@ -1,11 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router"
-import Cabecalho from "./componentes/Cabecalho/index.tsx"
-import { ReceitaProvider } from "./contextos/ReceitaContext.tsx"
-import Home from "./paginas/Home/Home.tsx"
-import AdicionarReceita from "./paginas/AdicionarReceita/index.tsx"
+import { BrowserRouter, Route, Routes } from "react-router";
+import Cabecalho from "./componentes/Cabecalho/index.tsx";
+import { ReceitaProvider } from "./contextos/ReceitaContext.tsx";
+import Home from "./paginas/Home/Home.tsx";
+import AdicionarReceita from "./paginas/AdicionarReceita/index.tsx";
 
 function App() {
-
   return (
     <BrowserRouter>
       <ReceitaProvider>
@@ -17,7 +16,7 @@ function App() {
         </Routes>
       </ReceitaProvider>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,23 +1,35 @@
-import { useState } from "react"
-import type { IReceita } from "../../interfaces/Receita"
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from "react";
+import type { IReceita } from "../../interfaces/Receita";
+import { v4 as uuidv4 } from "uuid";
 
 interface FormularioProps {
-  receita: IReceita
-  aoEditar: (receita: IReceita) => void
+  receita: IReceita;
+  aoEditar: (receita: IReceita) => void;
 }
 
 const Formulario = ({ receita, aoEditar }: FormularioProps) => {
-
-  const [receitaAtual, setReceitaAtual] = useState(receita)
+  const [receitaAtual, setReceitaAtual] = useState(receita);
 
   return (
-    <div className="modal fade" id={`${receita.id}`} tab-index="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      className="modal fade"
+      id={`${receita.id}`}
+      tab-index="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div className="modal-dialog">
         <form className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">{receita.nome}</h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h1 className="modal-title fs-5" id="exampleModalLabel">
+              {receita.nome}
+            </h1>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div className="modal-body">
             <label htmlFor={`${receita.nome}`}>Nome</label>
@@ -25,33 +37,30 @@ const Formulario = ({ receita, aoEditar }: FormularioProps) => {
               id={receita.nome}
               type="text"
               value={receitaAtual.nome}
-              onChange={e => setReceitaAtual({ ...receita, nome: e.target.value })}
+              onChange={(e) =>
+                setReceitaAtual({ ...receita, nome: e.target.value })
+              }
             />
             <h2>Ingredientes</h2>
             <ul>
-              {receitaAtual.ingredientes.map(ingrediente => (
-                <li
-                  key={uuidv4()}>
-                  <input type="text" value={ingrediente.nome} onChange={() => { }} />
-                  <input type="number" value={ingrediente.quantidade} onChange={() => { }} />
-                  <input type="text" value={ingrediente.medida} onChange={() => { }} />
+              {receitaAtual.ingredientes.map((ingrediente) => (
+                <li key={uuidv4()}>
+                  <input type="text" value={ingrediente} onChange={() => {}} />
                 </li>
-              )
-              )}
+              ))}
             </ul>
             <h2>Modo de preparo</h2>
             <ol>
               {receitaAtual.instrucoes.map((instrucao, i) => (
-                <li
-                  key={uuidv4()}>
+                <li key={uuidv4()}>
                   <input
                     type="text"
                     value={instrucao}
-                    onChange={e => {
+                    onChange={(e) => {
                       const instrucoes = receita.instrucoes.map((inst, j) =>
-                        i === j ? e.target.value : inst
-                      )
-                      setReceitaAtual({ ...receita, instrucoes })
+                        i === j ? e.target.value : inst,
+                      );
+                      setReceitaAtual({ ...receita, instrucoes });
                     }}
                   />
                 </li>
@@ -59,18 +68,28 @@ const Formulario = ({ receita, aoEditar }: FormularioProps) => {
             </ol>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => { aoEditar(receitaAtual) }}
+              onClick={() => {
+                aoEditar(receitaAtual);
+              }}
               data-bs-dismiss="modal"
-            >Salvar</button>
+            >
+              Salvar
+            </button>
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Formulario
+export default Formulario;

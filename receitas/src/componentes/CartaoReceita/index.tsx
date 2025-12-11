@@ -1,18 +1,24 @@
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Avaliacao from "../Avaliacao";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 interface CartaoReceitaProps {
-  id: number
-  nome: string
-  ingredientes: string[]
-  instrucoes: string[]
-  imagem?: string
-  aoDeletar: (id: number) => void
+  id: number;
+  nome: string;
+  ingredientes: string[];
+  instrucoes: string[];
+  imagem?: string;
+  aoDeletar: (id: number) => void;
 }
 
-const CartaoReceita = ({ id, nome, ingredientes, instrucoes, imagem, aoDeletar }: CartaoReceitaProps) => {
-
+const CartaoReceita = ({
+  id,
+  nome,
+  ingredientes,
+  instrucoes,
+  imagem,
+  aoDeletar,
+}: CartaoReceitaProps) => {
   return (
     <article className="col-6">
       <div className="card rounded shadow m-2">
@@ -25,33 +31,39 @@ const CartaoReceita = ({ id, nome, ingredientes, instrucoes, imagem, aoDeletar }
         <div className="card-body">
           <h3>Ingredientes</h3>
           <ul>
-            {ingredientes.map(ingrediente => (
-              <li
-                key={uuidv4()}>{ingrediente}</li>
+            {ingredientes.map((ingrediente) => (
+              <li key={uuidv4()}>{ingrediente}</li>
             ))}
           </ul>
           <h3>Como fazer</h3>
           <ol>
-            {instrucoes.map(instrucao => (
-              <li
-                key={uuidv4()}>{instrucao}</li>
+            {instrucoes.map((instrucao) => (
+              <li key={uuidv4()}>{instrucao}</li>
             ))}
           </ol>
         </div>
         <div className="card-footer d-flex justify-content-between">
           <Avaliacao />
           <div>
-            <button className="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target={`#${id}`} onClick={() => { }}>
+            <button
+              className="border-0 bg-transparent"
+              data-bs-toggle="modal"
+              data-bs-target={`#${id}`}
+              onClick={() => {}}
+            >
               <FaEdit />
             </button>
-            <button className="border-0 bg-transparent" onClick={() => aoDeletar(id)}>
+            <button
+              className="border-0 bg-transparent"
+              onClick={() => aoDeletar(id)}
+            >
               <FaTrashAlt />
             </button>
           </div>
         </div>
       </div>
     </article>
-  )
-}
+  );
+};
 
-export default CartaoReceita
+export default CartaoReceita;
